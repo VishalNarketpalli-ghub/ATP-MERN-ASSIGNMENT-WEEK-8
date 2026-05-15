@@ -13,14 +13,28 @@ app.use(cors());
 app.use(express.json());
 
 // Database connection
-mongoose.connect(process.env.DB_URL)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+const DB_URL = process.env.DB_URL;
+
+if (DB_URL) {
+    mongoose.connect(DB_URL)
+        .then(() => console.log('Connected to MongoDB'))
+        .catch(err => console.error('MongoDB connection error:', err));
+} else {
+    console.warn('DB_URL is not set. Skipping MongoDB connection.');
+}
 
 // Routes
 app.use('/api', UserApp);
 
 const PORT = process.env.PORT || 2000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const server = app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use.`);
+    } else {
+        console.error('Server error:', err);
+    }
 });
