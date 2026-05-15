@@ -27,7 +27,7 @@ UserApp.post('/users', async (req, res) => {
 
 //Read All users
 UserApp.get('/users', async (req, res) => {
-    let userList = await UserTypeModel.find()
+    let userList = await UserTypeModel.find({ status: true })
 
     res.status(200).json({ message: "Users: ", payload: userList })
 })

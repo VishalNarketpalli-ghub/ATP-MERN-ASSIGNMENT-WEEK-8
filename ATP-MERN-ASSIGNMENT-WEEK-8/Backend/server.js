@@ -8,8 +8,9 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+app.use(cors({
+    origin: ["https://atp-mern-assignment-week-8-eta.vercel.app", "http://localhost:5173"]
+}));
 app.use(express.json());
 
 // Database connection
