@@ -1,4 +1,5 @@
 import exp from 'express'
+import mongoose from 'mongoose'
 import { UserTypeModel } from '../models/UserModel.js'
 
 //Create min-express app
@@ -11,6 +12,10 @@ export const UserApp = exp.Router()
 //create User
 UserApp.post('/users', async (req, res) => {
     try {
+        if (mongoose.connection.readyState !== 1) {
+            return res.status(503).json({ message: 'Database connection is not ready' })
+        }
+
         let userObj = req.body
         let userDoc = new UserTypeModel(userObj)
         await userDoc.save()
@@ -18,6 +23,8 @@ UserApp.post('/users', async (req, res) => {
     } catch (err) {
         if (err.code === 11000) {
             res.status(400).json({ message: "Email already exists" })
+        } else if (err.name === 'ValidationError') {
+            res.status(400).json({ message: 'Validation failed', error: err.message })
         } else {
             res.status(500).json({ message: "Server Error", error: err.message })
         }
