@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
     return (
         <footer className="footer">
-            © {new Date().getFullYear()} User Management · Built with React
+            {new Date().getFullYear()} User Management · ATP Asignment - 8
         </footer>
     );
 }
