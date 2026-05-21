@@ -16,6 +16,18 @@ function UserList() {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await axios.delete(`https://atp-mern-assignment-week-8-1-y33y.onrender.com/api/users/${id}`);
+        setUsers(users.filter(user => user._id !== id));
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        alert(error.response?.data?.message || "Failed to delete user.");
+      }
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -36,7 +48,13 @@ function UserList() {
               <h3>{user.name}</h3>
               <p><strong>Email:</strong> {user.email}</p>
               <p><strong>DOB:</strong> {new Date(user.dateOfBirth).toLocaleDateString()}</p>
-              <p><strong>Mobile:</strong> {user.mobileNumber}</p>
+              <p><strong>Mobile:</strong> {user.mobileNumber || 'N/A'}</p>
+              <button 
+                className="delete-btn" 
+                onClick={() => handleDelete(user._id)}
+              >
+                Delete
+              </button>
             </div>
           ))
         )}

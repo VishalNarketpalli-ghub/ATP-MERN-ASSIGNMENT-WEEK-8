@@ -10,7 +10,7 @@ Brief, production-ready README for the ATP MERN assignment project. This reposit
 
 **Key Features:**
 
-- Create, read, and list users
+- Create, read, list, and soft-delete users
 - Clear project structure with separate Backend and Frontend
 - Easy local development and production build scripts
 

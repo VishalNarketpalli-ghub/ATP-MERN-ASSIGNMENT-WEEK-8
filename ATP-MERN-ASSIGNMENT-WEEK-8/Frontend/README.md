@@ -7,6 +7,12 @@ Overview
 - SPA for managing users. Built with React and bundled by Vite.
 - Uses `axios` to call the backend API routes mounted under `/api`.
 
+Features
+
+- **User Dashboard / Grid**: View all active users in a beautiful grid layout with premium typography and shadow gradients.
+- **Add User Form**: Complete form for registration including client-side validation, error handling, and redirection on success.
+- **Soft Delete User**: Immediate soft deletion directly from the grid items, with user confirmation prompts and seamless UI updates.
+
 Tech stack
 
 - React 18, React Router
