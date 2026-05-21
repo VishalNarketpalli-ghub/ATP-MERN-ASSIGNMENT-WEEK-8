@@ -22,7 +22,7 @@ function AddUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://atp-mern-assignment-week-8-p2dl.onrender.com/api/users', formData);
+      await axios.post('https://atp-mern-assignment-week-8-1-y33y.onrender.com/api/users', formData);
       navigate('/users');
     } catch (error) {
       console.error("Error adding user:", error);
