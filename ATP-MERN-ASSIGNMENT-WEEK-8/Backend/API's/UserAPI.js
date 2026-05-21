@@ -21,7 +21,7 @@ UserApp.post('/users', async (req, res) => {
         await userDoc.save()
         res.status(201).json({ message: "User Created", payload: userDoc })
     } catch (err) {
-        if (err.code === 11000) {
+        if (err.code === 11000 || err.cause?.code === 11000) {
             res.status(400).json({ message: "Email already exists" })
         } else if (err.name === 'ValidationError') {
             res.status(400).json({ message: 'Validation failed', error: err.message })
@@ -82,7 +82,7 @@ UserApp.put("/users/:id", async (req, res) => {
         if (!updatedUser) return res.status(404).json({ message: "User Not Found" })
         res.status(200).json({ message: "User Updated", payload: updatedUser })
     } catch (err) {
-        if (err.code === 11000) {
+        if (err.code === 11000 || err.cause?.code === 11000) {
             res.status(400).json({ message: "Email already exists" })
         } else {
             res.status(500).json({ message: "Server Error", error: err.message })
